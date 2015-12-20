@@ -10,45 +10,40 @@ class HeapSort {
 public:
 	int* heapSort(int* A, int n) {
 		// write code here
-		int temp = 0;
-
-		for (int i = n / 2 - 1; i >= 0; i--)
+		for (int j = 0; j < n; ++j)
 		{
-			heapify(A, i);
+			heapify(A, 0, n - j);
+			swap(A[0], A[n - j - 1]);
 		}
-		for (int i = 0; i < n; ++i)
-		{
-			for (int i = n / 2; i >= 0; i--)
-			{
-				heapify(A, i);
-			}
-			temp = A[0];
-			A[0] = A[n - i - 1];
-			A[n - i - 1] = temp;
-		}
-
 		return A;
 	}
 
-	void heapify(int* A, int i)
+	void heapify(int* A, int j, int n)
+	{
+		for (int i = n / 2 - 1; i >= j; i--)
+		{
+			int Left = 2 * i + 1;
+			int Right = 2 * i + 2;
+			if (Left < n && A[i] < A[Left])
+			{
+				swap(A[i], A[Left]);
+				heapify(A, Left, n);
+			}
+
+			if (Right < n && A[i] < A[Right])
+			{
+				swap(A[i], A[Right]);
+				heapify(A, Right, n);
+			}
+		}
+	}
+
+	void swap(int &a, int &b)
 	{
 		int temp = 0;
-		int Left = 2 * i + 1;
-		int Right = 2 * i + 2;
-
-		if (A[i] < A[Left])
-		{
-			temp = A[i];
-			A[i] = A[Left];
-			A[Left] = temp;
-		}
-
-		if (A[i] < A[Right])
-		{
-			temp = A[i];
-			A[i] = A[Right];
-			A[Right] = temp;
-		}
+		temp = a;
+		a = b;
+		b = temp;
 	}
 };
 
