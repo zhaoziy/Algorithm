@@ -9,7 +9,40 @@ class ShellSort {
 public:
 	int* shellSort(int* A, int n) {
 		// write code here
+		int step = n / 2;
+		while (step > 0)
+		{
+			for (int i = step; i < n; ++i)
+			{
+				for (int j = i - step; j >= 0;  j -= step)
+				{
+					if (A[j + step] < A[j])
+					{
+						swap(A[j + step], A[j]);
+					}
+				}
+			}
+			step /= 2;
+		}
+		return A;
 	}
+
+	//int* shellSort(int* A, int n) {
+	//	// write code here
+	//	int step = n / 2;
+	//	while (step > 0)
+	//	{
+	//		for (int i = step; i < n; ++i)
+	//		{
+	//			for (int j = i - step; j >= 0 && A[j + step] < A[j]; j -= step)
+	//			{
+	//				swap(A[j], A[j + step]);
+	//			}
+	//		}
+	//		step /= 2;
+	//	}
+	//	return A;
+	//}
 
 	void swap(int &a, int &b)
 	{
