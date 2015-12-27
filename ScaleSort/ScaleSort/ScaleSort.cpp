@@ -10,29 +10,39 @@ class ScaleSort {
 public:
 	vector<int> sortElement(vector<int> A, int n, int k) {
 		// write code here
-		for (int i = 0; i < n - k + 1; ++i)
+		for (int i = 0; i < n; ++i)
 		{
-			heapSort(A, i, i + k - 1);
+			if (i + k - 1 < n)
+			{
+				heapSort(A, i, i + k - 1);
+			}
+			else
+			{
+				heapSort(A, i, n - 1);
+			}
 		}
 		return A;
 	}
 
 	void heapSort(vector<int> &A, int begin, int end)
 	{
-		int *B = new int[end - begin + 1];
-		for (int i = 0; i < end - begin + 1; ++i)
+		int n = end - begin + 1;
+		int *B = new int[n];
+		for (int i = 0; i < n; ++i)
 		{
 			B[i] = A[begin + i];
 		}
-		int NotAlone = (end - begin + 1) / 2 - 1;
+		int NotAlone = n / 2 - 1;
 		for (int i = NotAlone; i >= 0; i--)
 		{
-			adjust(B, i, end - begin + 1);
+			adjust(B, i, n);
 		}
-		for (int i = 0; i < end - begin + 1; ++i)
+		for (int i = 0; i < n; ++i)
 		{
 			A[begin + i] = B[i];
 		}
+		delete B;
+		B = NULL;
 	}
 
 	int *adjust(int *A, int i, int n)
@@ -41,14 +51,14 @@ public:
 
 		int LeftChild = 2 * i + 1;
 		int RightChild = 2 * i + 2;
-		if (A[i] > A[RightChild] && RightChild < n)
+		if (RightChild < n && A[i] > A[RightChild])
 		{
 			temp = A[i];
 			A[i] = A[RightChild];
 			A[RightChild] = temp;
 			adjust(A, RightChild, n);
 		}
-		if (A[i] > A[LeftChild] && LeftChild < n)
+		if (LeftChild < n && A[i] > A[LeftChild])
 		{
 			temp = A[i];
 			A[i] = A[LeftChild];
@@ -74,7 +84,7 @@ int main()
 	init_Array.push_back(9);
 
 	ScaleSort sort;
-	init_Array = sort.sortElement(init_Array, init_Array.size(), 2);
+	init_Array = sort.sortElement(init_Array, init_Array.size(), 4);
 	for (int i = 0; i < init_Array.size(); ++i)
 	{
 		cout << init_Array[i] << endl;
