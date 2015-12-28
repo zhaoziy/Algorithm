@@ -57,10 +57,23 @@ public:
 
 	void inOrderTraversal(TreeNode &root, vector<int> &ref)
 	{
-	
+		stack<TreeNode*> S;
+		TreeNode *cur = &root;
+		while (!(cur == NULL && S.empty() == true))
+		{
+			if (cur == NULL)
+			{
+				ref.push_back(S.top()->val);
+				cur = S.top()->right;
+				S.pop();
+				continue;
+			}
+			S.push(cur);
+			cur = cur->left;
+		}
 	}
 
-	void postOrderTraversal(TreeNode* root, vector<int> &ref)
+	void postOrderTraversal(TreeNode &root, vector<int> &ref)
 	{
 		
 	}
