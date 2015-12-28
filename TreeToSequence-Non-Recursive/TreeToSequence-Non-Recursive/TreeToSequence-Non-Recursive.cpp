@@ -1,4 +1,4 @@
-// TreeToSequence.cpp : 定义控制台应用程序的入口点。
+// TreeToSequence-Non-Recursive.cpp : 定义控制台应用程序的入口点。
 //
 
 #include "stdafx.h"
@@ -6,17 +6,18 @@
 #include <vector>
 using namespace std;
 
-struct TreeNode
+struct TreeNode 
 {
 	int val;
 	struct TreeNode *left;
 	struct TreeNode *right;
-	/*TreeNode(int x) : val(x), left(NULL), right(NULL)
+	/*TreeNode(int x) :	val(x), left(NULL), right(NULL)
 	{
 	}*/
 };
 
-class TreeToSequence {
+class TreeToSequence
+{
 public:
 	vector<vector<int> > convert(TreeNode* root)
 	{
@@ -34,29 +35,17 @@ public:
 
 	void preOrderTraverse(TreeNode* root, vector<int> &ref)
 	{
-		if (root == NULL)
-			return;
-		ref.push_back(root->val);
-		preOrderTraverse(root->left, ref);
-		preOrderTraverse(root->right, ref);
+
 	}
 
 	void inOrderTraversal(TreeNode* root, vector<int> &ref)
 	{
-		if (root == NULL)
-			return;
-		inOrderTraversal(root->left, ref);
-		ref.push_back(root->val);
-		inOrderTraversal(root->right, ref);
+	
 	}
 
 	void postOrderTraversal(TreeNode* root, vector<int> &ref)
 	{
-		if (root == NULL)
-			return;
-		postOrderTraversal(root->left, ref);
-		postOrderTraversal(root->right, ref);
-		ref.push_back(root->val);
+		
 	}
 };
 
@@ -117,3 +106,4 @@ int main()
 	cout << endl;
 	return 0;
 }
+
