@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
 
 struct TreeNode 
@@ -24,8 +25,8 @@ public:
 		// write code here
 		vector<int> A, B, C;
 		vector<vector<int>> Result;
-		preOrderTraverse(root, A);
-		inOrderTraversal(root, B);
+		preOrderTraverse(*root, A);
+		inOrderTraversal(*root, B);
 		postOrderTraversal(root, C);
 		Result.push_back(A);
 		Result.push_back(B);
@@ -33,12 +34,28 @@ public:
 		return Result;
 	}
 
-	void preOrderTraverse(TreeNode* root, vector<int> &ref)
+	void preOrderTraverse(TreeNode &root, vector<int> &ref)
 	{
-
+		stack<TreeNode*> S;
+		TreeNode *cur = NULL;
+		S.push(&root);
+		while (S.empty() != true)
+		{
+			cur = S.top();
+			S.pop();
+			ref.push_back(cur->val);
+			if (cur->right != NULL)
+			{
+				S.push(cur->right);
+			}
+			if (cur->left != NULL)
+			{
+				S.push(cur->left);
+			}
+		}
 	}
 
-	void inOrderTraversal(TreeNode* root, vector<int> &ref)
+	void inOrderTraversal(TreeNode &root, vector<int> &ref)
 	{
 	
 	}
@@ -106,4 +123,3 @@ int main()
 	cout << endl;
 	return 0;
 }
-
