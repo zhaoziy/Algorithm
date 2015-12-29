@@ -20,7 +20,22 @@ public:
 
 	void heapify(int* A, int j, int n)
 	{
-		
+		for (int i = n / 2 - 1; i >= j; i--)
+		{
+			int Left = 2 * i + 1;
+			int Right = 2 * i + 2;
+			if (Left < n && A[i] < A[Left])
+			{
+				swap(A[i], A[Left]);
+				
+			}
+
+			if (Right < n && A[i] < A[Right])
+			{
+				swap(A[i], A[Right]);
+				
+			}
+		}
 	}
 
 	void swap(int &a, int &b)

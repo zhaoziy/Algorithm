@@ -24,16 +24,28 @@ public:
 		{
 			int Left = 2 * i + 1;
 			int Right = 2 * i + 2;
-			if (Left < n && A[i] < A[Left])
+			int large = i;
+
+			if (Left < n)
 			{
-				swap(A[i], A[Left]);
-				heapify(A, Left, n);
+				if (A[i] < A[Left])
+				{
+					large = Left;
+					if (Right < n && A[large] < A[Right])
+					{
+						large = Right;
+					}
+				}
+				else if (Right < n && A[i] < A[Right])
+				{
+					large = Right;
+				}				
 			}
 
-			if (Right < n && A[i] < A[Right])
+			if (large != i)
 			{
-				swap(A[i], A[Right]);
-				heapify(A, Right, n);
+				swap(A[i], A[large]);
+				heapify(A, large, n);
 			}
 		}
 	}
