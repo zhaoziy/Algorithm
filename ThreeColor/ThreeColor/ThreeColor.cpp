@@ -8,18 +8,44 @@ using namespace std;
 
 class ThreeColor {
 public:
-	vector<int> sortThreeColor(vector<int> A, int n) {
+	vector<int> sortThreeColor(vector<int> A, int n)
+	{
 		// write code here
-		
+		int front = 0;
+		int rear = n - 1;
+		int cur = 0;
+		while (cur <= rear)
+		{
+			if (A[cur] == 0)
+			{
+				swap(A[cur++], A[front++]);
+			}
+			else if (A[cur] == 1)
+			{
+				cur++;
+			}
+			else
+			{
+				swap(A[cur], A[rear--]);
+			}
+		}
 		return A;
+	}
+
+	void swap(int &a, int &b)
+	{
+		int temp = 0;
+		temp = a;
+		a = b;
+		b = temp;
 	}
 };
 
 int main()
 {
-	int temp[6] = { 0,1,1,0,2,2 };
+	int temp[12] = { 2,2,2,2,2,1,1,1,1,0,0,0 };
 	vector<int> init_Array;
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 12; ++i)
 	{
 		init_Array.push_back(temp[i]);
 	}
@@ -30,6 +56,6 @@ int main()
 	{
 		cout << B[i] << endl;
 	}
-    return 0;
+	return 0;
 }
 
