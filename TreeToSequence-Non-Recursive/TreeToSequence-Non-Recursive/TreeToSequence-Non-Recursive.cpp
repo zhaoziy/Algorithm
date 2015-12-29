@@ -7,7 +7,7 @@
 #include <stack>
 using namespace std;
 
-struct TreeNode 
+struct TreeNode
 {
 	int val;
 	struct TreeNode *left;
@@ -27,7 +27,7 @@ public:
 		vector<vector<int>> Result;
 		preOrderTraverse(*root, A);
 		inOrderTraversal(*root, B);
-		postOrderTraversal(root, C);
+		postOrderTraversal(*root, C);
 		Result.push_back(A);
 		Result.push_back(B);
 		Result.push_back(C);
@@ -75,7 +75,29 @@ public:
 
 	void postOrderTraversal(TreeNode &root, vector<int> &ref)
 	{
-		
+		stack<TreeNode*> s1, s2;
+		s1.push(&root);
+
+		TreeNode *cur = NULL;
+		while (s1.empty() != true)
+		{
+			cur = s1.top();
+			s2.push(s1.top());
+			s1.pop();
+			if (cur->left != NULL)
+			{
+				s1.push(cur->left);
+			}
+			if (cur->right != NULL)
+			{
+				s1.push(cur->right);
+			}
+		}
+		while (s2.empty() != true)
+		{
+			ref.push_back(s2.top()->val);
+			s2.pop();
+		}
 	}
 };
 
