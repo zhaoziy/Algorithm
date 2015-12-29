@@ -10,6 +10,29 @@ class Merge {
 public:
 	int* mergeAB(int* A, int* B, int n, int m) {
 		// write code here
+		int i = n - 1;
+		int j = m - 1;
+		int count = m + n - 1;
+		while (i >= 0 && j >= 0)
+		{
+			if (A[i] < B[j])
+			{
+				A[count--] = B[j--];
+			}
+			else
+			{
+				A[count--] = A[i--];
+			}
+		}
+		while (i >= 0)
+		{
+			A[count--] = A[i--];
+		}
+		while (j >= 0)
+		{
+			A[count--] = B[j--];
+		}
+		return A;
 	}
 };
 
