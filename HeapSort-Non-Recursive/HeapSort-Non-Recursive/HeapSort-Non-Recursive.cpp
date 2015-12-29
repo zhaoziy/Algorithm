@@ -24,16 +24,35 @@ public:
 		{
 			int Left = 2 * i + 1;
 			int Right = 2 * i + 2;
-			if (Left < n && A[i] < A[Left])
-			{
-				swap(A[i], A[Left]);
-				
-			}
+			int large = i;
+			int cur = i;
 
-			if (Right < n && A[i] < A[Right])
+			while (Left < n || Right < n)
 			{
-				swap(A[i], A[Right]);
-				
+				if (Left < n && A[cur] < A[Left])
+				{
+					large = Left;
+					if (Right < n && A[large] < A[Right])
+					{
+						large = Right;
+					}
+				}
+				else if (Right < n && A[cur] < A[Right])
+				{
+					large = Right;
+				}
+
+				if (large != cur)
+				{
+					swap(A[cur], A[large]);
+					cur = large;
+					Left = 2 * cur + 1;
+					Right = 2 * cur + 2;
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 	}

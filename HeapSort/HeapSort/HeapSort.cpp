@@ -26,20 +26,17 @@ public:
 			int Right = 2 * i + 2;
 			int large = i;
 
-			if (Left < n)
+			if (Left < n && A[i] < A[Left])
 			{
-				if (A[i] < A[Left])
-				{
-					large = Left;
-					if (Right < n && A[large] < A[Right])
-					{
-						large = Right;
-					}
-				}
-				else if (Right < n && A[i] < A[Right])
+				large = Left;
+				if (Right < n && A[large] < A[Right])
 				{
 					large = Right;
-				}				
+				}
+			}
+			else if (Right < n && A[i] < A[Right])
+			{
+				large = Right;
 			}
 
 			if (large != i)
