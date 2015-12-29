@@ -3,13 +3,51 @@
 
 #include "stdafx.h"
 #include <vector>
+#include <stack>
 #include <iostream>
 using namespace std;
+
+struct TreeNode
+{
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	/*TreeNode(int x) :	val(x), left(NULL), right(NULL)
+	{
+	}*/
+};
 
 class Checker {
 public:
 	bool checkDuplicate(vector<int> a, int n) {
 		// write code here
+	}
+
+	void postOrderTraversal(TreeNode &root, vector<int> &ref)
+	{
+		stack<TreeNode*> s1, s2;
+		s1.push(&root);
+
+		TreeNode *cur = NULL;
+		while (s1.empty() != true)
+		{
+			cur = s1.top();
+			s2.push(s1.top());
+			s1.pop();
+			if (cur->left != NULL)
+			{
+				s1.push(cur->left);
+			}
+			if (cur->right != NULL)
+			{
+				s1.push(cur->right);
+			}
+		}
+		while (s2.empty() != true)
+		{
+			ref.push_back(s2.top()->val);
+			s2.pop();
+		}
 	}
 };
 
