@@ -1,9 +1,9 @@
-// BFS.cpp : 定义控制台应用程序的入口点。
+// DFS.cpp : 定义控制台应用程序的入口点。
 //
 
 #include "stdafx.h"
 #include <vector>
-#include <deque>
+#include <stack>
 #include <iostream>
 using namespace std;
 
@@ -17,32 +17,22 @@ struct TreeNode
 	}
 };
 
-class BFS
+class DFS
 {
 public:
-	vector<int> bfs(TreeNode* root)
+	vector<int> dfs(TreeNode* root)
 	{
 		vector<int> result;
-		Deque.push_back(root);
+		Stack.push(root->right);
+		Stack.push(root->left);
 
-		while (!Deque.empty())
-		{
-			result.push_back(Deque.front()->val);
-			if (Deque.front()->left != NULL)
-			{
-				Deque.push_back(Deque.front()->left);
-			}
-			if (Deque.front()->right != NULL)
-			{
-				Deque.push_back(Deque.front()->right);
-			}
-			Deque.pop_front();
-		}
+		result.push_back(root->val);
+		Stack.push()
 		return result;
 	}
 
 private:
-	deque<TreeNode *> Deque;
+	stack<TreeNode *> Stack;
 };
 
 int main()
@@ -60,10 +50,10 @@ int main()
 	Node2.right = &Node5;
 	Node3.left = &Node6;
 	Node3.right = &Node7;
-	
-	BFS bfs;
+
+	DFS dfs;
 	vector<int> Result;
-	Result = bfs.bfs(&Node1);
+	Result = dfs.dfs(&Node1);
 
 	for (int i = 0; i < Result.size(); ++i)
 	{
