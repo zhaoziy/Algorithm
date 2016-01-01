@@ -4,17 +4,30 @@
 #include "stdafx.h"
 #include <stack>
 
-using namespace ;
+using namespace std;
 
-class Solution
+class TwoStackDeque
 {
 public:
 	void push(int node) {
-
+		stack1.push(node);
 	}
 
 	int pop() {
-
+		while (stack1.empty() != true)
+		{
+			stack2.push(stack1.top());
+			stack1.pop();
+		}
+		int temp = 0;
+		temp = stack2.top();
+		stack2.pop();
+		while (stack2.empty() != true)
+		{
+			stack1.push(stack2.top());
+			stack2.pop();
+		}
+		return temp;
 	}
 
 private:
