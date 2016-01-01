@@ -1,4 +1,4 @@
-// SearchInArray.cpp : 定义控制台应用程序的入口点。
+// reConstructBinaryTree.cpp : 定义控制台应用程序的入口点。
 //
 
 #include "stdafx.h"
@@ -12,7 +12,7 @@ struct TreeNode {
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class ReConstructBinaryTree {
 public:
 	struct TreeNode* reConstructBinaryTree(vector<int> pre, vector<int> in) {
 		if (pre.size() == 0)
@@ -23,7 +23,7 @@ public:
 		vector<int> in_left;
 		vector<int> in_right;
 		struct TreeNode *head = new TreeNode(pre[0]);
-		
+
 		bool flag = false;
 		for (int i = 0; i < in.size(); ++i)
 		{
@@ -85,10 +85,9 @@ int main()
 		in_vec.push_back(in[i]);
 	}
 
-	Solution sol;
+	ReConstructBinaryTree sol;
 	struct TreeNode *head(0);
 
 	head = sol.reConstructBinaryTree(pre_vec, in_vec);
 	return 0;
 }
-
