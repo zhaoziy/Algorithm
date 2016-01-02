@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D502366C-AA51-49C3-83A6-5B7B80CAE025}</ProjectGuid>
+    <ProjectGuid>{D07523F2-B30D-48B6-9240-D848B4DF6F05}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SearchInArray</RootNamespace>
+    <RootNamespace>KMP</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -149,7 +149,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SearchInArray.cpp" />
+    <ClCompile Include="KMP.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
