@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 struct TreeNode {
@@ -14,12 +16,67 @@ struct TreeNode {
 	}*/
 };
 
-class IdenticalTree {
+class IdenticalTree 
+{
 public:
-	bool chkIdentical(TreeNode* A, TreeNode* B) {
+	bool chkIdentical(TreeNode* A, TreeNode* B) 
+	{
 		// write code here
+		string Astr, Bstr;
+		serialization(A, Astr);
+		serialization(B, Bstr);
 
-		return true;
+		if (Finder(Astr, Bstr))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void serialization(TreeNode *Node, string &str)
+	{
+		if (Node == NULL)
+		{
+			str += "#!";
+			return;
+		}
+
+		stringstream Strstream;
+		string strtemp;
+		Strstream << Node->val;
+		Strstream >> strtemp;
+
+		str = str + strtemp + "!";
+		serialization(Node->left, str);
+		serialization(Node->right, str);
+	}
+
+	bool Finder(string A, string B)
+	{
+		for (int i = 0; i < A.size(); ++i)
+		{
+			int index = i;
+			int count = 0;
+			for (int j = 0; j < B.size(); ++j)
+			{
+				if (A[index++] == B[j])
+				{
+					count++;
+				}
+				else
+				{
+					break;
+				}
+			}
+			if (count == B.size())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 };
 
@@ -55,15 +112,15 @@ int main()
 	node[6].right = NULL;
 
 	TreeNode nodeX[3];
-	nodeX[0].val = 0;
+	nodeX[0].val = 1;
 	nodeX[0].left = &nodeX[1];
 	nodeX[0].right = &nodeX[2];
 
-	nodeX[1].val = 1;
+	nodeX[1].val = 3;
 	nodeX[1].left = NULL;
 	nodeX[1].right = NULL;
 
-	nodeX[2].val = 2;
+	nodeX[2].val = 4;
 	nodeX[2].left = NULL;
 	nodeX[2].right = NULL;
 
