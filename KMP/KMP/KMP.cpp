@@ -19,26 +19,17 @@ public:
 
 	int* getNext(string T)
 	{
+		int *next = new int[T.size()];
+		next[0] = -1;
 		int i = 1;
 		int j = 0;
-		int *next = new int[T.size()+1];
-
-		next[0] = next[1] = 0;
-		
-		while (i < T.length())
+		while (i < T.size() - 1)
 		{
-			if (j == 0 | |T[i] == T[j])
+			if ( j==0||T[i] == T[j])
 			{
 				i++;
 				j++;
-				if (T[i] != T[j])
-				{
-					next[i] = j;
-				}
-				else
-				{
-					next[i] = next[j];
-				}
+				next[i - 1] = j -1;
 			}
 			else
 			{
