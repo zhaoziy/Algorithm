@@ -26,7 +26,7 @@ public:
 		serialization(A, Astr);
 		serialization(B, Bstr);
 
-		if (Finder(Astr, Bstr))
+		if (kmp(Astr, Bstr))
 		{
 			return true;
 		}
@@ -54,28 +54,69 @@ public:
 		serialization(Node->right, str);
 	}
 
-	bool Finder(string A, string B)
+	bool kmp(string target, string pattern)
 	{
-		for (int i = 0; i < A.size(); ++i)
+		int *next = NULL;
+		next = getNext(pattern);
+		int target_pt = 0;
+		int pattern_pt = 0;
+		while (target_pt < target.size() && pattern_pt < pattern.size())
 		{
-			int count = 0;
-			for (int j = 0; j < B.size(); ++j)
+			if (target[target_pt] != pattern[pattern_pt])
 			{
-				if (A[i + j] == B[j])
+				pattern_pt = next[pattern_pt + 1];
+				pattern_pt--;
+			}
+			else
+			{
+				target_pt++;
+				pattern_pt++;
+			}
+
+			if (pattern_pt == -1)
+			{
+				target_pt++;
+				pattern_pt++;
+			}
+		}
+		if (pattern_pt >= pattern.size())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	int* getNext(string Pattern)
+	{
+		string Temp = " " + Pattern;
+		int *next = new int[Temp.size()];
+		next[0] = next[1] = 0;
+		int i = 1;
+		int j = 0;
+		while (i < Pattern.size())
+		{
+			if (j == 0 || Temp[i] == Temp[j])
+			{
+				i++;
+				j++;
+				if (Temp[i] == Temp[j])
 				{
-					count++;
+					next[i] = next[j];
 				}
 				else
 				{
-					break;
+					next[i] = j;
 				}
 			}
-			if (count == B.size())
+			else
 			{
-				return true;
+				j = next[j];
 			}
 		}
-		return false;
+		return next;
 	}
 };
 
