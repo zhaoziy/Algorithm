@@ -58,11 +58,10 @@ public:
 	{
 		for (int i = 0; i < A.size(); ++i)
 		{
-			int index = i;
 			int count = 0;
 			for (int j = 0; j < B.size(); ++j)
 			{
-				if (A[index++] == B[j])
+				if (A[i + j] == B[j])
 				{
 					count++;
 				}
