@@ -8,15 +8,23 @@ using namespace std;
 class Solution {
 public:
 	int minNumberInRotateArray(vector<int> rotateArray) {
-		int MinIndex = 0;
-		int Min = rotateArray[0];
-		for (int i = 0; i < rotateArray.size(); ++i)
+		vector<int> temp;
+		int Min = 0;
+		for(int i = 0; i < rotateArray.size(); ++i)
 		{
-			if (rotateArray[i] < Min)
+			if (Min > rotateArray[i])
 			{
-				MinIndex = i;
+				Min = rotateArray[i];
 			}
 		}
+		for (int j = 0; j < 2; ++j)
+		{
+			for (int i = 0; i < rotateArray.size(); ++i)
+			{
+				temp.push_back(rotateArray[i]);
+			}
+		}
+		
 
 	}
 };
