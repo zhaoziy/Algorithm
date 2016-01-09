@@ -27,10 +27,25 @@ public:
 	}
 };
 
+//class Solution {
+//public:
+//	int Fibonacci(int n) {
+//		if (n == 1)
+//		{
+//			return 1;
+//		}
+//		else if (n == 2)
+//		{
+//			return 1;
+//		}
+//		return Fibonacci(n - 1) + Fibonacci(n - 2);
+//	}
+//};
+
 int main()
 {
 	Solution so;
-	so.Fibonacci(4);
+	int i = so.Fibonacci(6);
     return 0;
 }
 
