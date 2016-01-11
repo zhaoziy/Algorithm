@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct ListNode {
@@ -16,15 +17,13 @@ public:
 	ListNode* listDivide(ListNode* head, int val) {
 		// write code here
 		ListNode *pre = NULL;
-		ListNode *mid = NULL;
 		ListNode *rear = NULL;
 		ListNode *pre_cu = NULL;
-		ListNode *mid_cu = NULL;
 		ListNode *rear_cu = NULL;
 		ListNode *current = head;
 		while (current != NULL)
 		{
-			if (current->val < val)
+			if (current->val <= val)
 			{
 				if (pre_cu == NULL)
 				{
@@ -39,7 +38,7 @@ public:
 				current = current->next;
 				pre_cu->next = NULL;
 			}
-			else if(current->val > val)
+			else
 			{
 				if (rear_cu == NULL)
 				{
@@ -54,40 +53,44 @@ public:
 				current = current->next;
 				rear_cu->next = NULL;
 			}
-			else
-			{
-				if (mid_cu == NULL)
-				{
-					mid = current;
-					mid_cu = current;
-				}
-				else
-				{
-					mid_cu->next = current;
-					mid_cu = mid_cu->next;
-				}
-				current = current->next;
-				mid_cu->next = NULL;
-			}
 		}
 
+		vector<ListNode*> re;
+		if (pre != NULL)
+		{
+			re.push_back(pre);
+			re.push_back(pre_cu);
+		}
+		if (rear != NULL)
+		{
+			re.push_back(rear);
+			re.push_back(rear_cu);
+		}
+
+		ListNode* result = re[0];
+		if (re.size() == 4)
+		{
+			re[1]->next = re[2];
+		}
 		
-		return pre_cu;
+		return result;
 	}
 };
 
 int main()
 {
-	ListNode node1(1);
-	ListNode node2(4);
-	ListNode node3(2);
-	ListNode node4(5);
+	ListNode node1(1620);
+	ListNode node2(1134);
+	ListNode node3(861);
+	ListNode node4(563);
+	ListNode node5(1);
 	node1.next = &node2;
 	node2.next = &node3;
 	node3.next = &node4;
+	node4.next = &node5;
 	Divide d;
 	ListNode *result;
-	result = d.listDivide(&node1, 3);
+	result = d.listDivide(&node1,1134);
 	return 0;
 }
 
