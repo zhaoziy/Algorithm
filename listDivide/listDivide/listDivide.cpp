@@ -15,38 +15,63 @@ class Divide {
 public:
 	ListNode* listDivide(ListNode* head, int val) {
 		// write code here
-		ListNode *pre = new ListNode(0);
-		ListNode *mid = new ListNode(0);
-		ListNode *rear = new ListNode(0);
-		ListNode *pre_cu = pre;
-		ListNode *mid_cu = mid;
-		ListNode *rear_cu = rear;
+		ListNode *pre = NULL;
+		ListNode *mid = NULL;
+		ListNode *rear = NULL;
+		ListNode *pre_cu = NULL;
+		ListNode *mid_cu = NULL;
+		ListNode *rear_cu = NULL;
 		ListNode *current = head;
 		while (current != NULL)
 		{
 			if (current->val < val)
 			{
-				pre_cu->next = current;
-				pre_cu = pre_cu->next;
+				if (pre_cu == NULL)
+				{
+					pre = current;
+					pre_cu = current;
+				}
+				else
+				{
+					pre_cu->next = current;
+					pre_cu = pre_cu->next;
+				}
 				current = current->next;
 				pre_cu->next = NULL;
 			}
 			else if(current->val > val)
 			{
-				rear_cu->next = current;
-				rear_cu = rear_cu->next;
+				if (rear_cu == NULL)
+				{
+					rear = current;
+					rear_cu = current;
+				}
+				else
+				{
+					rear_cu->next = current;
+					rear_cu = rear_cu->next;
+				}
 				current = current->next;
 				rear_cu->next = NULL;
 			}
 			else
 			{
-				mid_cu->next = current;
-				mid_cu = mid_cu->next;
+				if (mid_cu == NULL)
+				{
+					mid = current;
+					mid_cu = current;
+				}
+				else
+				{
+					mid_cu->next = current;
+					mid_cu = mid_cu->next;
+				}
 				current = current->next;
 				mid_cu->next = NULL;
 			}
 		}
 
+		
 		return pre_cu;
 	}
 };
