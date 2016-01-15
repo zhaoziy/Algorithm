@@ -10,57 +10,105 @@ struct ListNode {
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
+//class KInverse {
+//public:
+//	ListNode* inverse(ListNode* head, int k) {
+//		// write code here
+//		if (k == 1)
+//			return head;
+//		ListNode *front = NULL;
+//		ListNode *current = head;
+//		ListNode *back = NULL;
+//		while (current != NULL)
+//		{
+//			int i = 0;
+//			while (i < k)
+//			{
+//				if (i++ == 0)
+//				{
+//					front = current;
+//				}
+//				else
+//				{
+//					back = current;
+//				}
+//				current = current->next;
+//			}
+//			
+//			int j = 0;
+//			if (k == 2)
+//			{
+//				ListNode *cur1 = front;
+//				ListNode *cur2 = cur1->next;
+//				ListNode *cur3 = cur2->next;
+//				cur2->next = cur1;
+//				cur1 = cur2;
+//				cur2 = cur3;
+//				cur3 = cur3->next;
+//			}
+//			while (j < k)
+//			{
+//				
+//			}
+//		}
+//		return head;
+//	}
+//};
+
 class KInverse {
 public:
+	ListNode *reverseList(ListNode *head, ListNode *last_tail)
+	{
+		ListNode *nextNode = head->next;
+		ListNode *res = head;
+
+		while (nextNode)
+		{
+			ListNode *tmp = nextNode->next;
+			nextNode->next = head;
+			head = nextNode;
+			nextNode = tmp;
+		}
+
+		last_tail->next = head;
+
+		return res;
+	}
+
 	ListNode* inverse(ListNode* head, int k) {
-		// write code here
-		if (k == 1)
-		{
-			return head;
-		}
-		ListNode *front = NULL;
-		ListNode *current = head;
-		ListNode *rear = NULL;
-		while (current != NULL)
-		{
-			int i = 0;
-			while (i < k && current != NULL)
-			{
-				if (i == 0)
-				{
-					front = current;
-					current = current->next;
-				}
-				else if (i == k - 1)
-				{
-					rear = current;
-					current = current->next;
-				}
-				else
-				{
-					current = current->next;
-				}
-				i++;
-			}
+		// 头结点的前一个结点
+		ListNode *resHead = new ListNode(-1);
+		resHead->next = head;
 
-			ListNode *cur1 = front;
-			ListNode *cur2 = cur1->next;
-			ListNode *cur3 = cur2->next;
+		// 计数 是否到k个结点
+		int cnt = 0;
+		ListNode *curNode = head;
+		ListNode *tailNode = resHead;
 
-			if (i == k)
+		while (curNode)
+		{
+			cnt++;
+			if (cnt == k)
 			{
-				ListNode *cur1 = front;
-				ListNode *cur2 = cur1->next;
-				ListNode *cur3 = cur2->next;
-				int j = 0;
-				while (j < i)
-				{
-					cur2->next = cur1;
-					
-				}
+				// 保存第k个结点的下一个结点 便于将这k个结点逆序后连接下一个k个结点的头
+				ListNode *nextKHead = curNode->next;
+
+				curNode->next = NULL;
+				tailNode = reverseList(tailNode->next, tailNode);
+
+				// 逆序后的尾结点 与 下一组结点的头链接起来
+				tailNode->next = nextKHead;
+
+				// 这一组结点逆序完成 开始下一组逆序
+				curNode = nextKHead;
+				// 结点计数复位
+				cnt = 0;
+				continue;
 			}
+			curNode = curNode->next;
 		}
-		return head;
+
+		return resHead->next;
 	}
 };
 
