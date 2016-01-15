@@ -14,7 +14,53 @@ class KInverse {
 public:
 	ListNode* inverse(ListNode* head, int k) {
 		// write code here
+		if (k == 1)
+		{
+			return head;
+		}
+		ListNode *front = NULL;
+		ListNode *current = head;
+		ListNode *rear = NULL;
+		while (current != NULL)
+		{
+			int i = 0;
+			while (i < k && current != NULL)
+			{
+				if (i == 0)
+				{
+					front = current;
+					current = current->next;
+				}
+				else if (i == k - 1)
+				{
+					rear = current;
+					current = current->next;
+				}
+				else
+				{
+					current = current->next;
+				}
+				i++;
+			}
 
+			ListNode *cur1 = front;
+			ListNode *cur2 = cur1->next;
+			ListNode *cur3 = cur2->next;
+
+			if (i == k)
+			{
+				ListNode *cur1 = front;
+				ListNode *cur2 = cur1->next;
+				ListNode *cur3 = cur2->next;
+				int j = 0;
+				while (j < i)
+				{
+					cur2->next = cur1;
+					
+				}
+			}
+		}
+		return head;
 	}
 };
 
