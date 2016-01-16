@@ -13,9 +13,23 @@ struct ListNode {
 
 class Palindrome {
 public:
-	ListNode *ReverseList(ListNode *head, ListNode *tail)
+	ListNode *ReverseList(ListNode *head)
 	{
-
+		ListNode *cur1 = head;
+		ListNode *cur2 = cur1->next;
+		ListNode *cur3 = cur2->next;
+		cur1->next = NULL;
+		while (cur2 != NULL)
+		{
+			cur2->next = cur1;
+			cur1 = cur2;
+			cur2 = cur3;
+			if (cur3 != NULL)
+			{
+				cur3 = cur3->next;
+			}
+		}
+		return cur1;
 	}
 
 	bool isPalindrome(ListNode* pHead) 
@@ -25,17 +39,29 @@ public:
 		{
 			return true;
 		}
+		if (pHead->next->next == NULL)
+		{
+			if (pHead->val == pHead->next->val)
+				return true;
+			else
+				return false;
+		}
+
 		ListNode *curFront = pHead;
 		ListNode *fast = pHead;
 		ListNode *slow = pHead;
+
+		int i = 0;
 		while (fast != NULL && fast->next != NULL)
 		{
 			slow = slow->next;
 			fast = fast->next->next;
+			i++;
 		}
-		ReverseList(slow, fast);
-		ListNode *curRear= fast;
-		while (curRear != slow)
+		
+		ListNode *curRear= ReverseList(slow);
+		ListNode *rev = curRear;
+		while (i-- > 0)
 		{
 			if (curRear->val == curFront->val)
 			{
@@ -47,7 +73,7 @@ public:
 				return false;
 			}
 		}
-		ReverseList(fast, slow);
+		ReverseList(rev);
 		return true;
 	}
 };
@@ -58,9 +84,9 @@ int main()
 	ListNode *NODE2 = new ListNode(2);
 	ListNode *NODE3 = new ListNode(3);
 	ListNode *NODE4 = new ListNode(4);
-	ListNode *NODE5 = new ListNode(4);
-	ListNode *NODE6 = new ListNode(3);
-	ListNode *NODE7 = new ListNode(2);
+	ListNode *NODE5 = new ListNode(3);
+	ListNode *NODE6 = new ListNode(2);
+	ListNode *NODE7 = new ListNode(1);
 	//ListNode *NODE8 = new ListNode(1);
 
 	NODE1->next = NODE2;
