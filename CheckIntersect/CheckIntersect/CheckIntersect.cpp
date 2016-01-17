@@ -36,40 +36,27 @@ public:
 			{
 				pA = pA->next;
 			}
-			while (pA != NULL)
-			{
-				if (pA == pB)
-				{
-					return true;
-				}
-				pA = pA->next;
-				pB = pB->next;
-			}
-			return false;
 		}
-		else
+		else if(j >i)
 		{
 			pA = headA;
 			pB = headB;
 			int m = j - i;
-			if (m > 0)
+			while (m--)
 			{
-				while (m--)
-				{
-					pB = pB->next;
-				}
-			}
-			while (pB != NULL)
-			{
-				if (pA == pB)
-				{
-					return true;
-				}
-				pA = pA->next;
 				pB = pB->next;
 			}
-			return false;
 		}
+		while (pA != NULL)
+		{
+			if (pA == pB)
+			{
+				return true;
+			}
+			pA = pA->next;
+			pB = pB->next;
+		}
+		return false;
 	}
 };
 
