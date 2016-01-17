@@ -14,6 +14,7 @@ class ChkIntersection {
 public:
 	bool chkInter(ListNode* head1, ListNode* head2, int adjust0, int adjust1) {
 		// write code here
+
 	}
 };
 
@@ -25,19 +26,17 @@ int main()
 	ListNode *NODE4 = new ListNode(4);
 	ListNode *NODE5 = new ListNode(5);
 	ListNode *NODE6 = new ListNode(6);
-	ListNode *NODE7 = new ListNode(7);
-	ListNode *NODE8 = new ListNode(8);
 
 	NODE1->next = NODE2;
 	NODE2->next = NODE3;
 	NODE3->next = NODE4;
-	NODE4->next = NODE5;
-	NODE5->next = NODE6;
-	NODE6->next = NODE7;
-	NODE7->next = NODE8;
+	NODE4->next = NODE2;
 
+	NODE5->next = NODE6;
+	NODE6->next = NODE3;
+	
 	ChkIntersection C;
-	C.chkInter(NODE1, 2);
+	C.chkInter(NODE1, NODE5, 1, 2);
 	return 0;
 	return 0;
 }
