@@ -17,6 +17,34 @@ class CountNodes {
 public:
 	int count(TreeNode* root) {
 		// write code here
+		int Icount= 1;
+		TreeNode *leftNode = root;
+		while (leftNode != NULL)
+		{
+			Icount++;
+			leftNode = leftNode->left;
+		}
+		int i = 1;
+		leftNode = root;
+		while (leftNode != NULL)
+		{
+			if (i++ == Icount)
+			{
+				leftNode = leftNode->left;
+			}
+			else
+			{
+				leftNode = leftNode->right;
+			}
+		}
+		if (leftNode != NULL)
+		{
+			//左子树为满树
+		}
+		else
+		{
+			//右子树为满树
+		}
 	}
 };
 
