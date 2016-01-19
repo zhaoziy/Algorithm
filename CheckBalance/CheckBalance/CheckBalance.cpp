@@ -25,25 +25,16 @@ public:
 	{
 		if (root == NULL)
 			return 0;
-		if (root->left == NULL && root->right == NULL)
-			return 1;
-		int LH = 0;
-		int RH = 0;
-		int LH_temp = 0;
-		int RH_temp = 0;
-		LH_temp = Level(root->left);
-		if (LH_temp != -1)
-			LH += LH_temp;
-		else
+
+		int LH = Level(root->left);
+		if (LH == -1)
 			return -1;
 
-		RH_temp = Level(root->right);
-		if (RH_temp != -1)
-			RH += RH_temp;
-		else
+		int RH = Level(root->right);
+		if (RH == -1)
 			return -1;
 
-		return (abs(LH - RH) > 1 || LH == -1 || RH == -1) ? (-1) : ((LH > RH) ? (LH + 1) : (RH + 1));
+		return (abs(LH - RH) > 1) ? (-1) : ((LH > RH) ? (LH + 1) : (RH + 1));
 	}
 };
 
@@ -66,7 +57,7 @@ int main()
 
 	node3->right = node5;
 
-	node4->left = node6;
+	//node4->left = node6;
 
 	/*node4->left = node8;
 	node4->right = node9;*/
