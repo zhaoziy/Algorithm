@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-
+#include <math.h>
 
 struct TreeNode {
 	int val;
@@ -17,7 +17,33 @@ class CheckBalance {
 public:
 	bool check(TreeNode* root) {
 		// write code here
+		int i = Level(root);
+		return (i == -1) ? (false) : (true);
+	}
 
+	int Level(TreeNode* root)
+	{
+		if (root == NULL)
+			return 0;
+		if (root->left == NULL && root->right == NULL)
+			return 1;
+		int LH = 0;
+		int RH = 0;
+		int LH_temp = 0;
+		int RH_temp = 0;
+		LH_temp = Level(root->left);
+		if (LH_temp != -1)
+			LH += LH_temp;
+		else
+			return -1;
+
+		RH_temp = Level(root->right);
+		if (RH_temp != -1)
+			RH += RH_temp;
+		else
+			return -1;
+
+		return (abs(LH - RH) > 1 || LH == -1 || RH == -1) ? (-1) : ((LH > RH) ? (LH + 1) : (RH + 1));
 	}
 };
 
@@ -29,21 +55,21 @@ int main()
 	TreeNode* node4 = new TreeNode(4);
 	TreeNode* node5 = new TreeNode(5);
 	TreeNode* node6 = new TreeNode(6);
-	TreeNode* node7 = new TreeNode(7);
+	/*TreeNode* node7 = new TreeNode(7);
 	TreeNode* node8 = new TreeNode(8);
-	TreeNode* node9 = new TreeNode(9);
+	TreeNode* node9 = new TreeNode(9);*/
 
 	node1->left = node2;
 	node1->right = node3;
 
 	node2->left = node4;
-	node2->right = node5;
 
-	node3->left = node6;
-	node3->right = node7;
+	node3->right = node5;
 
-	node4->left = node8;
-	node4->right = node9;
+	node4->left = node6;
+
+	/*node4->left = node8;
+	node4->right = node9;*/
 
 	CheckBalance c;
 	int a = c.check(node1);
