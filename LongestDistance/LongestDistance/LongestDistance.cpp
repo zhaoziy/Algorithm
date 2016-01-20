@@ -16,35 +16,18 @@ struct TreeNode {
 
 class LongestDistance {
 public:
-	void get(TreeNode *rt, int *mx, int &ret) 
-	{
-		int lmx = 0, rmx = 0;
-		if (rt->left) 
-		{
-			get(rt->left, mx, ret); 
-			lmx = mx[rt->left->val];
-		}
-		if (rt->right)
-		{
-			get(rt->right, mx, ret); 
-			rmx = mx[rt->right->val];
-		}
-		mx[rt->val] = max(lmx, rmx) + 1;
-		if (lmx + rmx + 1 > ret) 
-			ret = lmx + rmx + 1;
-	}
-
 	int findLongest(TreeNode* root) {
 		// write code here
-		int ret = 0;
-		int mx[550];
-		get(root, mx, ret);
-		return ret;
+		int childdi = 0;
+		int headdi = 0;
+		findDistance(root, childdi, headdi);
+		return childdi;
 	}
 
-	int max(int a, int b)
-	{
-		return (a > b) ? (a) : (b);
+	// childdis：以head为节点的子树上的最大距离
+	// headdis:  到head节点的最大距离
+	void findDistance(TreeNode* head, int& childdis, int& headdis) {
+		
 	}
 };
 
