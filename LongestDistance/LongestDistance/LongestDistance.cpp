@@ -18,16 +18,29 @@ class LongestDistance {
 public:
 	int findLongest(TreeNode* root) {
 		// write code here
-		int childdi = 0;
-		int headdi = 0;
-		findDistance(root, childdi, headdi);
-		return childdi;
+		int LongDisInTree = 0;
+		int LongDisToHead = 0;
+		findDistance(root, LongDisInTree, LongDisToHead);
+		return LongDisInTree;
 	}
 
-	// childdis：以head为节点的子树上的最大距离
-	// headdis:  到head节点的最大距离
-	void findDistance(TreeNode* head, int& childdis, int& headdis) {
-		
+	void findDistance(TreeNode* head, int &LongDisInTree, int &LongDisToHead)//以head为头结点内的距离
+	{
+		if (head == NULL)
+		{
+			LongDisInTree = 0;
+			LongDisToHead = 0;
+			return;
+		}
+		int LMax1 = 0;  //左子树上的最大距离(左子树内)
+		int LMax2 = 0;  //左子树上距离head左孩子的最远距离
+		int RMax1 = 0;  //右子树上的最大距离(右子树内)
+		int RMax2 = 0;  //右子树上距离head右孩子的最远距离
+		findDistance(head->left, LMax1, LMax2);
+		findDistance(head->right, RMax1, RMax2);
+		LongDisInTree = (LMax1 > RMax1) ? (LMax1) : (RMax1);
+		LongDisInTree = (LongDisInTree > (LMax2 + RMax2 + 1)) ? (LongDisInTree) : (LMax2 + RMax2 + 1);
+		LongDisToHead = (LMax2 > RMax2) ? (LMax2 + 1) : (RMax2 + 1);
 	}
 };
 
@@ -43,21 +56,21 @@ int main()
 	TreeNode* node8 = new TreeNode(8);
 	TreeNode* node9 = new TreeNode(9);
 
-	node3->left = node2;
-	node3->right = node6;
+	node6->left = node4;
+	//node6->right = node6;
 
-	node2->left = node1;
+	node4->right = node2;
 
-	node6->left = node5;
-	node6->right = node9;
+	node2->left = node5;
+	//node2->right = node9;
 
-	node5->left = node4;
+	node5->left = node1;
 
-	node9->left = node8;
-	node8->left = node7;
+	node1->left = node3;
+	//node8->left = node7;
 
 	LongestDistance c;
-	int a = c.findLongest(node3);
+	int a = c.findLongest(node6);
 	return 0;
 }
 
