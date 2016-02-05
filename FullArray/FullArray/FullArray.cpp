@@ -2,7 +2,8 @@
 //
 
 #include "stdafx.h"
-
+#include <iostream>
+using namespace std;
 
 template <typename T>
 inline void swap(T* array, unsigned int i, unsigned int j)
@@ -13,8 +14,8 @@ inline void swap(T* array, unsigned int i, unsigned int j)
 }
 
 /*
-	* 递归输出序列的全排列
-	*/
+* 递归输出序列的全排列
+*/
 void FullArray(char* array, size_t array_size, unsigned int index)
 {
 	if (index >= array_size)
@@ -33,17 +34,16 @@ void FullArray(char* array, size_t array_size, unsigned int index)
 	{
 		swap(array, i, index);
 
-		FullArray1(array, array_size, index + 1);
+		FullArray(array, array_size, index + 1);
 
 		swap(array, i, index);
 	}
 }
 
-
-
-
 int main()
 {
+	char array[] = "123";
+	FullArray(array, 3, 0);
 	return 0;
 }
 
