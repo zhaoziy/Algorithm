@@ -23,11 +23,18 @@ public:
 	vector<int> dfs(TreeNode* root)
 	{
 		vector<int> result;
-		Stack.push(root->right);
-		Stack.push(root->left);
-
-		result.push_back(root->val);
-		Stack.push()
+		TreeNode *cur = root;
+		Stack.push(cur);
+		while (!Stack.empty())
+		{
+			result.push_back(cur->val);
+			if (cur->right != NULL)
+				Stack.push(cur->right);
+			if (cur->left != NULL)
+				Stack.push(cur->left);
+			cur = Stack.top();
+			Stack.pop();
+		}
 		return result;
 	}
 
