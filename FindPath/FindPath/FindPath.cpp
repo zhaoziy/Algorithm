@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <vector>
+#include <stack>
 using namespace std;
 
 struct TreeNode {
@@ -15,6 +16,7 @@ struct TreeNode {
 };
 
 class Solution {
+
 public:
 	vector<vector<int> > FindPath(TreeNode* root, int expectNumber) {
 
