@@ -22,7 +22,6 @@ public:
 		// write code here
 		vector<vector<int>> result;
 		vector<int> temp;
-		vector<TreeNode*>  EndNode;
 		Deque.push_back(root);
 		
 		TreeNode* last = root;
