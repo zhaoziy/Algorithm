@@ -43,8 +43,8 @@ using namespace std;
 
 class Solution {
 public:
-	int GetUglyNumber_Solution(int index) {
-		vector<int> UglyNum;
+	long long GetUglyNumber_Solution(int index) {
+		vector<long long> UglyNum;
 		UglyNum.push_back(1);
 		UglyNum.push_back(2);
 		UglyNum.push_back(3);
@@ -55,23 +55,23 @@ public:
 		int i = 5;
 		while (i++ < index)
 		{
-			int num2 = GetUglyNumber(UglyNum, 2);
-			int num3 = GetUglyNumber(UglyNum, 3);
-			int num5 = GetUglyNumber(UglyNum, 5);
+			long long num2 = GetUglyNumber(UglyNum, 2);
+			long long num3 = GetUglyNumber(UglyNum, 3);
+			long long num5 = GetUglyNumber(UglyNum, 5);
 			UglyNum.push_back(max(num2, num3, num5));
 		}
 		return UglyNum[(int)UglyNum.size() - 1];
 	}
 
-	inline int max(int num1, int num2, int num3)
+	inline long long max(long long num1, long long num2, long long num3)
 	{
 		return (num1 > num2) ? ((num2 > num3) ? (num3) : (num2)) : ((num1 > num3) ? (num3) : (num1));
 	}
 
-	int GetUglyNumber(vector<int> &data, int num)
+	long long GetUglyNumber(vector<long long> &data, int num)
 	{
 		int size = (int)data.size();
-		int MaxNum = data[size - 1];
+		long long MaxNum = data[size - 1];
 		int left = 0;
 		int right = size - 1;
 		int mid = 0;
@@ -105,7 +105,7 @@ public:
 int main()
 {
 	Solution s;
-	int a = s.GetUglyNumber_Solution(1500);
+	long long a = s.GetUglyNumber_Solution(15000);
 	return 0;
 }
 
