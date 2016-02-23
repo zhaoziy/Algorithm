@@ -18,39 +18,30 @@ public:
 	{
 		if (pHead == NULL || pHead->next == NULL)
 			return pHead;
-		ListNode *head = pHead;
-		ListNode *pre = pHead;
-		ListNode *cur = pre->next;
-
-		while (pre->val == cur->val)
+		ListNode *head = new ListNode(0);
+		head->next = pHead;
+		ListNode *pre = head;
+		ListNode *cur = pHead;
+		ListNode *next = pHead->next;
+		while (next != NULL)
 		{
-			cur = cur->next;
-		}
-		head = cur;
-
-		ListNode *next = cur->next;
-
-		while (cur != NULL)
-		{
-			if (next != NULL)
+			while (next != NULL && cur->val == next->val)
+				next = next->next;
+			if (cur->next == next)
 			{
-				if (next->val != cur->val)
-				{
-					cur->next = next;
-					cur = cur->next;
-				}
-				else
-				{
-					next = next->next;
-				}
+				pre = cur;
+				cur = next;
+				next = next->next;
 			}
 			else
 			{
-				cur->next = next;
-				cur = cur->next;
+				pre->next = next;
+				cur = next;
+				if (next != NULL)
+					next = next->next;
 			}
 		}
-		return pHead;
+		return head->next;
 	}
 };
 
@@ -58,15 +49,19 @@ int main()
 {
 	ListNode* node1 = new ListNode(1);
 	ListNode* node2 = new ListNode(1);
-	ListNode* node3 = new ListNode(2);
-	ListNode* node4 = new ListNode(2);
-	ListNode* node5 = new ListNode(3);
+	/*ListNode* node3 = new ListNode(3);
+	ListNode* node4 = new ListNode(3);
+	ListNode* node5 = new ListNode(4);
+	ListNode* node6 = new ListNode(4);
+	ListNode* node7 = new ListNode(5);*/
 	node1->next = node2;
-	node2->next = node3;
+	/*node2->next = node3;
 	node3->next = node4;
 	node4->next = node5;
+	node5->next = node6;
+	node6->next = node7;*/
 	Solution s;
-	s.deleteDuplication(node1);
+	ListNode* RET = s.deleteDuplication(node1);
 	return 0;
 }
 
