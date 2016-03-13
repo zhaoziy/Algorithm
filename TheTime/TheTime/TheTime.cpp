@@ -2,66 +2,28 @@
 //
 
 #include "stdafx.h"
-#include <iostream>
-#include <sstream>
-#include <string>
+#include <stdio.h>
 using namespace std;
 
 int main()
 {
-	string input;
-	cin >> input;
-	string input_Time;
-	cin >> input_Time;
-	string hour, minute;
-	bool flag = false;
-	for (int i = 0; i < input.size(); ++i)
+	char input[10] = { 0 };
+	int h = 0, m = 0;
+	while (~scanf("%d:%d", &h, &m))
 	{
-		if (input[i] == ':')
+		int input_Time = 0;
+		scanf("%d", &input_Time);
+
+		m += input_Time;
+		while (m >= 60)
 		{
-			flag = true;
+			m -= 60;
+			h += 1;
+			if (h > 23)
+				h -= 24;
 		}
-		else if (flag == false)
-		{
-			hour += input[i];
-		}
-		else
-		{
-			minute += input[i];
-		}
+
+		printf("%0.2d:%0.2d\n", h, m);
 	}
-	int h = 0, m = 0, d = 0;
-	istringstream in(hour);
-	in >> h;
-	istringstream in2(minute);
-	in2 >> m;
-	istringstream in3(input_Time);
-	in3 >> d;
-	m += d;
-	while (m > 60)
-	{
-		m -= 60;
-		h += 1;
-		if (h > 23)
-			h -= 24;
-	}
-	string ret;
-	if (h == 0)
-		ret += "00:";
-	else if (h < 10)
-		ret += "0" + to_string(h) + ":";
-	else
-		ret += to_string(h) + ":";
-
-	if (m == 0)
-		ret += "00:";
-	else if (m < 10)
-		ret += "0" + to_string(m);
-	else
-		ret += to_string(m);
-
-	cout << ret;
-
-    return 0;
+	return 0;
 }
-

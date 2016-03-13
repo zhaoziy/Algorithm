@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include <vector>
-#include <deque>
 using namespace std;
 
 class CatDogAsylum
@@ -12,63 +11,41 @@ public:
 	vector<int> asylum(vector<vector<int> > ope)
 	{
 		// write code here
-		vector<int> ret;
-		deque<int> dog, cat, all;
+		vector<int> ret, all;
 		int size = (int)ope.size();
 		for (int i = 0; i < size; ++i) 
 		{
 			if (ope[i][0] == 1) 
-			{
-				if (ope[i][1] > 0) 
-				{
-					dog.push_back(ope[i][1]);
-					all.push_back(ope[i][1]);
-				}
-				else if (ope[i][1] < 0)
-				{
-					cat.push_back(ope[i][1]);
-					all.push_back(ope[i][1]);
-				}
-			}
+				all.push_back(ope[i][1]);
 			else if (ope[i][0] == 2) 
 			{
+				if(all.empty())
+					continue;
 				if (ope[i][1] == 0)
 				{
-					ret.push_back(all.front());
-					if (all.front() > 0)
-						dog.pop_front();
-					else if (all.front() < 0)
-						cat.pop_front();
-					all.pop_front();
+					ret.push_back(all[0]);
+					all.erase(all.begin());
 				}
 				else if (ope[i][1] == 1)
 				{
-					if (dog.size() != 0)
-						ret.push_back(dog.front());
-					else
-						continue;
-					dog.pop_front();
-					for (deque<int>::iterator iter = all.begin(); iter <= all.end(); iter++)
+					for (int i = 0; i < (int)all.size(); ++i)
 					{
-						if (*iter > 0)
+						if (all[i] > 0)
 						{
-							all.erase(iter);
+							ret.push_back(all[i]);
+							all.erase(all.begin() + i);
 							break;
 						}
 					}
 				}
 				else if (ope[i][1] == -1) 
 				{
-					if (cat.size() != 0)
-						ret.push_back(cat.front());
-					else
-						continue;
-					cat.pop_front();
-					for (deque<int>::iterator iter = all.begin(); iter <= all.end(); iter++)
+					for (int i = 0; i < (int)all.size(); ++i) 
 					{
-						if (*iter < 0)
+						if (all[i] < 0)
 						{
-							all.erase(iter);
+							ret.push_back(all[i]);
+							all.erase(all.begin() + i);
 							break;
 						}
 					}
