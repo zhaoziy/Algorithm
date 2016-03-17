@@ -2,65 +2,79 @@
 //
 
 #include "stdafx.h"
-#include <vector>
-#include <stack>
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct TreeNode
+typedef struct Graph
 {
-	int val;
-	struct TreeNode *left;
-	struct TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL)
-	{
-	}
+	int Vex[8];
+	int Edge[8][8];
 };
 
 class DFS
 {
+private:
+	bool edge[8][8] = { false };
 public:
-	vector<int> dfs(TreeNode* root)
+	void dfs(Graph MyGraph, int vex, vector<int> &result)
 	{
-		vector<int> result;
-		TreeNode *cur = root;
-		Stack.push(cur);
-		while (!Stack.empty())
+		for (int i = 0; i < 8; ++i)
 		{
-			result.push_back(cur->val);
-			if (cur->right != NULL)
-				Stack.push(cur->right);
-			if (cur->left != NULL)
-				Stack.push(cur->left);
-			cur = Stack.top();
-			Stack.pop();
+			if (MyGraph.Edge[vex][i] == 1 && edge[vex][i] == false)
+			{
+				result.push_back(i);
+				for (int j = 0; j < 8; ++j)
+				{
+					if(j !=vex)
+						edge[j][i] = true;
+				}
+				dfs(MyGraph, i, result);
+			}
 		}
-		return result;
 	}
 
-private:
-	stack<TreeNode *> Stack;
+	void DFS_Main(Graph MyGraph, int vex, vector<int> &result)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			edge[j][vex] = true;
+		}
+		dfs(MyGraph, vex, result);
+	}
 };
 
 int main()
 {
-	TreeNode Node1(1);
-	TreeNode Node2(2);
-	TreeNode Node3(3);
-	TreeNode Node4(4);
-	TreeNode Node5(5);
-	TreeNode Node6(6);
-	TreeNode Node7(7);
-	Node1.left = &Node2;
-	Node1.right = &Node3;
-	Node2.left = &Node4;
-	Node2.right = &Node5;
-	Node3.left = &Node6;
-	Node3.right = &Node7;
+	Graph MyGraph = { {0},{{0}} };
+	for (int i = 0; i < 8; ++i)
+	{
+		MyGraph.Vex[i] = i;
+	}
 
+	MyGraph.Edge[0][1] = 1;
+	MyGraph.Edge[1][0] = 1;
+	MyGraph.Edge[1][2] = 1;
+	MyGraph.Edge[2][1] = 1;
+	MyGraph.Edge[2][5] = 1;
+	MyGraph.Edge[5][2] = 1;
+	MyGraph.Edge[1][4] = 1;
+	MyGraph.Edge[4][1] = 1;
+	MyGraph.Edge[0][4] = 1;
+	MyGraph.Edge[4][0] = 1;
+	MyGraph.Edge[0][3] = 1;
+	MyGraph.Edge[3][0] = 1;
+	MyGraph.Edge[3][6] = 1;
+	MyGraph.Edge[6][3] = 1;
+	MyGraph.Edge[4][6] = 1;
+	MyGraph.Edge[6][4] = 1;
+	MyGraph.Edge[7][6] = 1;
+	MyGraph.Edge[6][7] = 1;
+	
 	DFS dfs;
 	vector<int> Result;
-	Result = dfs.dfs(&Node1);
+	Result.push_back(0);
+	dfs.DFS_Main(MyGraph, 0, Result);
 
 	for (int i = 0; i < Result.size(); ++i)
 	{
