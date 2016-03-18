@@ -15,20 +15,16 @@ typedef struct Graph
 class DFS
 {
 private:
-	bool edge[8][8] = { false };
+	bool edge[8] = { false };
 public:
 	void dfs(Graph MyGraph, int vex, vector<int> &result)
 	{
 		for (int i = 0; i < 8; ++i)
 		{
-			if (MyGraph.Edge[vex][i] == 1 && edge[vex][i] == false)
+			if (MyGraph.Edge[vex][i] == 1 && edge[i] == false)
 			{
 				result.push_back(i);
-				for (int j = 0; j < 8; ++j)
-				{
-					if(j !=vex)
-						edge[j][i] = true;
-				}
+				edge[i] = true;
 				dfs(MyGraph, i, result);
 			}
 		}
@@ -36,10 +32,7 @@ public:
 
 	void DFS_Main(Graph MyGraph, int vex, vector<int> &result)
 	{
-		for (int j = 0; j < 8; ++j)
-		{
-			edge[j][vex] = true;
-		}
+		edge[vex] = true;
 		dfs(MyGraph, vex, result);
 	}
 };
