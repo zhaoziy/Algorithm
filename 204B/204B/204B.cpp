@@ -31,6 +31,12 @@ int comp(const void*a, const void*b)
 	struct Card*d = (Card*)b;
 	return d->num - c->num;
 }
+int comp0(const void*a, const void*b)
+{
+	struct Card*c = (Card*)a;
+	struct Card*d = (Card*)b;
+	return c->Color - d->Color;
+}
 int comp1(const void*a, const void*b)
 {
 	struct InitCard*c = (InitCard*)a;
@@ -46,6 +52,8 @@ int comp2(const void*a, const void*b)
 
 int main()
 {
+	FILE *file = freopen("d:\\1.txt", "r", stdin);
+
 	int Count = 0;
 	while (scanf("%d", &Count) != EOF)
 	{
@@ -112,50 +120,70 @@ int main()
 			}
 			else
 				right = end;
-			cards_Back[num_Back].num = right - i + 1;
+			int same = 0;
+			for (int j = i; j <= right; ++j)
+			{
+				if (initcards[j].backCard == initcards[j].frontCard)
+					same++;
+			}
+			cards_Back[num_Back].num = right - i + 1 - same;
 			i = ++right;
-			num_Back++;
+			if (cards_Back[num_Back].num != 0)
+				num_Back++;
 		}
 		qsort(cards_Back, num_Back, sizeof(Card), comp);
 
 		if (Count % 2 == 0 && cards_Front[0].num >= Count / 2)
 		{
-			printf("0");
+			printf("%d\n", 0);
 			break;
 		}
 		else if (Count % 2 == 1 && cards_Front[0].num > Count / 2)
 		{
-			printf("0");
+			printf("%d\n", 0);
 			break;
 		}
+
+		qsort(cards_Back, num_Back, sizeof(Card), comp0);
 
 		bool flag = false;
 		for (int i = 0; i < num_Front; ++i)
 		{
-			for (int j = 0; j < num_Back; ++j)
+			int begin = 0, end = num_Back - 1;
+			int mid = 0;
+			while (begin < end)
 			{
-				if (cards_Back[j].Color == cards_Front[i].Color)
+				mid = begin + (end - begin) / 2;
+				if (cards_Back[mid].Color > cards_Front[i].Color)
+					end = mid - 1;
+				else if (cards_Back[mid].Color < cards_Front[i].Color)
+					begin = mid + 1;
+				else
+					break;
+			}
+			mid = begin + (end - begin) / 2;
+			if (cards_Back[mid].Color == cards_Front[i].Color)
+			{
+				if (Count % 2 == 0)
 				{
-					if (Count % 2 == 0)
+					if (cards_Back[mid].num + cards_Front[i].num >= Count / 2)
 					{
-						if (cards_Back[j].num + cards_Front[i].num >= Count / 2)
-						{
-							printf("%d\n", cards_Back[j].num - cards_Front[i].num);
-							flag = true;
-							break;
-						}
+						printf("%d\n", Count / 2 - cards_Front[i].num);
+						flag = true;
+						break;
 					}
-					else
+				}
+				else
+				{
+					if (cards_Back[mid].num + cards_Front[i].num > Count / 2)
 					{
-						if (cards_Back[j].num + cards_Front[i].num > Count / 2)
-						{
-							printf("%d\n", cards_Back[j].num - cards_Front[i].num + 1);
-							flag = true;
-							break;
-						}
+						printf("%d\n", Count / 2 - cards_Front[i].num + 1);
+						flag = true;
+						break;
 					}
 				}
 			}
+
 			if (flag == true)
 				break;
 		}
@@ -173,7 +201,42 @@ int main()
 			}
 		}
 		else
-			printf("-1");
+		{
+			int ret = initcards[0].backCard;
+			int ret_num = 1;
+			for (int i = 1; i < Count; ++i)
+			{
+				if (initcards[i].backCard == ret)
+					ret_num++;
+				else
+					ret_num--;
+				if (ret_num < 0)
+				{
+					ret = initcards[i].backCard;
+					ret_num = 1;
+				}
+			}
+			ret_num = 0;
+			for (int i = 0; i < Count; ++i)
+			{
+				if (initcards[i].backCard == ret)
+					ret_num++;
+			}
+			if (Count % 2 == 0)
+			{
+				if (ret_num >= Count / 2)
+					printf("%d", Count / 2);
+				else
+					printf("%d\n", -1);
+			}
+			else
+			{
+				if (ret_num > Count / 2)
+					printf("%d", Count / 2 + 1);
+				else
+					printf("%d\n", -1);
+			}
+		}
 	}
 	return 0;
 }
