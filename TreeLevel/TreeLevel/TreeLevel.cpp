@@ -24,8 +24,46 @@ class TreeLevel {
 public:
 	ListNode* getTreeLevel(TreeNode* root, int dep) {
 		// write code here
-		int level = 0;
-		ListNode *right = NULL;
+		if (root == NULL)
+			return NULL;
+		int level = 1;
+		TreeNode *CurRight = root;
+		TreeNode *NextRight = NULL;
+		deque<TreeNode*> deq;
+		deq.push_back(root);
+		ListNode *head = new ListNode(0);
+		ListNode *cur = head;
+		while (!deq.empty())
+		{
+			TreeNode *Cur = deq.front();
+			deq.pop_front();
+			if (level == dep)
+			{
+				ListNode *curnode = new ListNode(Cur->val);
+				cur->next = curnode;
+				cur = curnode;
+			}
+			else if(level > dep)
+			{
+				break;
+			}
+			if (Cur->left != NULL)
+			{
+				deq.push_back(Cur->left);
+				NextRight = Cur->left;
+			}
+			if (Cur->right != NULL)
+			{
+				deq.push_back(Cur->right);
+				NextRight = Cur->right;
+			}
+			if (Cur == CurRight)
+			{
+				CurRight = NextRight;
+				level++;
+			}
+		}
+		return head->next;
 	}
 };
 
